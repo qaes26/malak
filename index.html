@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comprehensive IoT Security Quiz</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f6f9;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #007bff;
+            padding-bottom: 20px;
+        }
+        h1 {
+            color: #007bff;
+            font-size: 24px;
+            margin: 0;
+        }
+        .intro-text {
+            color: #666;
+            margin-top: 10px;
+        }
+        .question-card {
+            background: #fff;
+            border: 1px solid #e1e4e8;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            transition: transform 0.2s;
+        }
+        .question-card:hover {
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+        .question-title {
+            font-weight: bold;
+            font-size: 18px;
+            margin-bottom: 15px;
+            color: #2c3e50;
+        }
+        .scenario-text {
+            background-color: #e8f4fd;
+            padding: 10px;
+            border-radius: 5px;
+            border-left: 4px solid #007bff;
+            font-size: 14px;
+            margin-bottom: 15px;
+            color: #004085;
+        }
+        .options label {
+            display: block;
+            margin-bottom: 10px;
+            cursor: pointer;
+            padding: 10px;
+            border-radius: 5px;
+            background: #f8f9fa;
+            border: 1px solid #ddd;
+            transition: all 0.2s;
+        }
+        .options label:hover {
+            background: #e2e6ea;
+        }
+        input[type="radio"] {
+            margin-right: 10px;
+        }
+        .feedback {
+            margin-top: 10px;
+            padding: 10px;
+            border-radius: 5px;
+            font-weight: bold;
+            display: none;
+        }
+        .correct {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .incorrect {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        .controls {
+            text-align: center;
+            margin-top: 30px;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .result-box {
+            text-align: center;
+            font-size: 20px;
+            font-weight: bold;
+            margin-top: 20px;
+            padding: 20px;
+            background: #d1ecf1;
+            color: #0c5460;
+            border-radius: 5px;
+            display: none;
+        }
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            font-size: 14px;
+            color: #777;
+            border-top: 1px solid #eee;
+            padding-top: 20px;
+        }
+        .author-name {
+            font-weight: bold;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>Comprehensive Exam: IoT Security & Protocols</h1>
+        <p class="intro-text">Answer the following 50 questions to test your knowledge.</p>
+    </header>
+
+    <div id="quiz-container">
+        </div>
+
+    <div class="controls">
+        <button onclick="submitQuiz()">Submit Answers & Show Results</button>
+    </div>
+
+    <div id="result" class="result-box"></div>
+
+    <footer>
+        <p>Prepared by <span class="author-name">Qais Jazi</span></p>
+    </footer>
+</div>
+
+<script>
+    const questions = [
+        // --- Module 1: Intro & Architecture ---
+        {
+            type: "mcq",
+            q: "Which layer in the IoT architecture is responsible for detecting physical changes in the environment?",
+            options: ["Network Layer", "Sensing/Perception Layer", "Service Layer", "Interface Layer"],
+            answer: 1
+        },
+        {
+            type: "mcq",
+            q: "Which of the following cyber attacks primarily targets 'Availability'?",
+            options: ["Interception", "Fabrication", "Interruption", "Modification"],
+            answer: 2
+        },
+        {
+            type: "mcq",
+            q: "What is the main difference between a Sensor and a Transducer?",
+            options: ["No difference.", "A transducer converts energy forms, while a sensor detects physical phenomena.", "Sensors are only for output.", "Transducers only work in wireless networks."],
+            answer: 1
+        },
+        {
+            type: "mcq",
+            q: "In the CIA security triad, what does 'Integrity' ensure?",
+            options: ["Data is available when needed.", "Data has not been altered or tampered with.", "Data remains confidential.", "The sender cannot deny sending the message."],
+            answer: 1
+        },
+        {
+            type: "scenario",
+            q: "Scenario: An attacker cuts the network cable connecting a surveillance camera to the server, stopping the service. This attack is classified as:",
+            options: ["Passive Attack", "Active Attack (Interruption)", "Modification", "Fabrication"],
+            answer: 1
+        },
+        {
+            type: "mcq",
+            q: "Which of the following is a wired communication technology?",
+            options: ["ZigBee", "LoRa", "PLC (Power Line Communication)", "Wi-Fi"],
+            answer: 2
+        },
+        {
+            type: "mcq",
+            q: "Which wired protocol uses a Bus Topology and supports distances up to 1200 meters?",
+            options: ["USB", "Ethernet", "RS-232", "RS-485"],
+            answer: 3
+        },
+        
+        // --- Module 2: Protocols & Wireless (ZigBee, Bluetooth, etc.) ---
+        {
+            type: "mcq",
+            q: "In ZigBee, which key is typically pre-installed by the vendor?",
+            options: ["Network Key", "Link Key", "Master Key", "Session Key"],
+            answer: 2
+        },
+        {
+            type: "mcq",
+            q: "Which ZigBee key is used to secure broadcast messages across the entire network?",
+            options: ["Master Key", "Network Key", "Link Key", "Private Key"],
+            answer: 1
+        },
+        {
+            type: "scenario",
+            q: "Scenario: You bought new Bluetooth headphones. Upon first connection, you exchange secret keys to establish a secure link. What is this process called?",
+            options: ["Bonding", "Pairing", "Encryption", "Routing"],
+            answer: 1
+        },
+        {
+            type: "scenario",
+            q: "Scenario: After pairing, you restart your headphones the next day and they connect automatically without asking for a PIN. What is this key-saving feature called?",
+            options: ["Pairing", "Advertising", "Bonding", "Scatternet"],
+            answer: 2
+        },
+        {
+            type: "mcq",
+            q: "What is the typical frequency band for Z-Wave in Europe?",
+            options: ["2.4 GHz", "908.42 MHz", "868.42 MHz", "5 GHz"],
+            answer: 2
+        },
+        {
+            type: "mcq",
+            q: "Which wireless technology is 'Ultra Narrow Band' and supports ranges over 1000 km theoretically?",
+            options: ["Wi-Fi 6", "Bluetooth 5.0", "SigFox", "ZigBee"],
+            answer: 2
+        },
+        {
+            type: "mcq",
+            q: "Which technology is designed to operate over cellular networks (GSM/LTE) and requires only 180 kHz bandwidth?",
+            options: ["LoRa", "NB-IoT", "Z-Wave", "SigFox"],
+            answer: 1
+        },
+        {
+            type: "mcq",
+            q: "Which cellular generation first introduced speeds up to 10 Gbit/s and massive IoT support (mMTC)?",
+            options: ["2G", "3G", "4G LTE", "5G"],
+            answer: 3
+        },
+        {
+            type: "scenario",
+            q: "Scenario: You need to deploy sensors in a very large farm (10 sq km) with no power supply, and batteries must last for years. Which technology is best?",
+            options: ["Wi-Fi", "Bluetooth BR/EDR", "LoRaWAN", "Ethernet"],
+            answer: 2
+        },
+
+        // --- Module 3: RFID Security ---
+        {
+            type: "mcq",
+            q: "In RFID security, what does 'Mutual Authentication' ensure?",
+            options: ["Only data encryption.", "Both the Reader and the Tag verify each other's identity.", "Hiding the tag's identity.", "Preventing DoS attacks."],
+            answer: 1
+        },
+        {
+            type: "mcq",
+            q: "What does 'Forward Secrecy' mean in RFID systems?",
+            options: ["If the current key is compromised, past data remains secure.", "Data is only sent forward.", "Protecting the user's location.", "Using one key for all sessions."],
+            answer: 0
+        },
+        {
+            type: "mcq",
+            q: "What is a major security challenge in Mass RFID deployment?",
+            options: ["High power consumption of readers.", "Limited resources of tags preventing strong encryption.", "High cost of cables.", "Difficulty connecting to the internet."],
+            answer: 1
+        },
+        {
+            type: "mcq",
+            q: "Which of the following is used to achieve 'Anonymity' in RFID systems?",
+            options: ["Sending ID in plaintext.", "Using encryption/hashing to hide tag identity.", "Using barcodes instead.", "Increasing reader power."],
+            answer: 1
+        },
+        
+        // --- Module 4: Industrial IoT ---
+        {
+            type: "mcq",
+            q: "What is the main difference between Enterprise Routers and Industrial IoT Gateways?",
+            options: ["Price only.", "Industrial gateways are ruggedized for harsh environments and support industrial protocols.", "Home routers are always faster.", "No difference."],
+            answer: 1
+        },
+        {
+            type: "mcq",
+            q: "What computing paradigm processes data 'at the edge' near the source to reduce latency?",
+            options: ["Cloud Computing", "Edge Computing", "Quantum Computing", "Grid Computing"],
+            answer: 1
+        },
+        {
+            type: "mcq",
+            q: "Which network topology relies on a central device (Hub/Switch) to which all nodes connect?",
+            options: ["Ring Topology", "Mesh Topology", "Star Topology", "Bus Topology"],
+            answer: 2
+        },
+        {
+            type: "mcq",
+            q: "Which topology provides high reliability where data can take multiple paths (Multi-hop)?",
+            options: ["Star Topology", "Bus Topology", "Mesh Topology", "Ring Topology"],
+            answer: 2
+        },
+        {
+            type: "scenario",
+            q: "Scenario: In a smart factory, you need to analyze machine vibrations and stop them instantly if dangerous (sub-millisecond). Should you use Cloud or Edge Computing?",
+            options: ["Cloud, because it's powerful.", "Edge Computing, to minimize latency.", "Store on a floppy disk.", "Use 2G network."],
+            answer: 1
+        },
+
+        // --- Mixed Questions ---
+        {
+            type: "mcq",
+            q: "Which protocol is commonly used for smart metering via electrical wires?",
+            options: ["Bluetooth", "PLC (Power Line Communication)", "USB", "NFC"],
+            answer: 1
+        },
+        {
+            type: "mcq",
+            q: "Which attack involves an attacker listening to data without altering it?",
+            options: ["Modification", "Interception (Eavesdropping)", "Fabrication", "DoS"],
+            answer: 1
+        },
+        {
+            type: "mcq",
+            q: "In Bluetooth LE, which mechanism ensures the message was not altered during transmission?",
+            options: ["Bonding", "Encryption", "Message Integrity (MIC)", "Pairing"],
+            answer: 2
+        },
+        {
+            type: "mcq",
+            q: "Which device converts electrical energy into physical action (e.g., a motor)?",
+            options: ["Sensor", "Actuator", "Microcontroller", "Gateway"],
+            answer: 1
+        },
+        {
+            type: "mcq",
+            q: "Which technology uses unlicensed ISM bands and Spread Spectrum modulation?",
+            options: ["NB-IoT", "LoRa", "GSM", "LTE"],
+            answer: 1
+        },
+        {
+            type: "scenario",
+            q: "Scenario: A ZigBee home system's Trust Center fails. Can new devices join the network securely?",
+            options: ["Yes, keys are in the bulbs.", "No, because the Trust Center distributes the keys.", "Yes, using the Master Key.", "No, ZigBee needs the internet."],
+            answer: 1
+        },
+        {
+            type: "mcq",
+            q: "Which attack involves inserting fake messages into the network to appear as a trusted source?",
+            options: ["Interruption", "Interception", "Modification", "Fabrication"],
+            answer: 3
+        },
+        {
+            type: "mcq",
+            q: "Which IoT layer handles protocols like MQTT, CoAP, and user interfaces?",
+            options: ["Sensing Layer", "Network Layer", "Application/Interface Layer", "Physical Layer"],
+            answer: 2
+        },
+        {
+            type: "mcq",
+            q: "What is the advantage of using Mesh Topology in street lighting?",
+            options: ["Cheaper cables.", "If one light fails, signals route through others.", "Extremely high data rate.", "No control needed."],
+            answer: 1
+        },
+        {
+            type: "mcq",
+            q: "What is the purpose of using a 'Nonce' (random number) in authentication?",
+            options: ["To speed up transfer.", "To prevent Replay Attacks.", "To compress data.", "To save battery."],
+            answer: 1
+        },
+        {
+            type: "mcq",
+            q: "Which is a characteristic of mmWave in 5G?",
+            options: ["Wide coverage.", "High wall penetration.", "High data rates but short range.", "Low power consumption."],
+            answer: 2
+        },
+        {
+            type: "mcq",
+            q: "What is the role of 'Protocol Conversion' in industrial gateways?",
+            options: ["Encrypting data.", "Translating legacy protocols (e.g., Modbus) to modern IP protocols.", "Increasing internet speed.", "Backing up data."],
+            answer: 1
+        },
+        {
+            type: "mcq",
+            q: "Which is an example of an Analog Sensor?",
+            options: ["On/Off switch.", "Thermocouple (outputs continuous voltage).", "Digital counter.", "Logic gate."],
+            answer: 1
+        },
+        {
+            type: "mcq",
+            q: "What is a security risk during the 'Data Collection' phase?",
+            options: ["Data Spoofing and leakage.", "Cloud encryption failure.", "Routing attacks.", "Server failure."],
+            answer: 0
+        },
+        {
+            type: "mcq",
+            q: "Which wireless standard is known as IEEE 802.15.4?",
+            options: ["Wi-Fi", "Bluetooth", "ZigBee", "Ethernet"],
+            answer: 2
+        },
+        {
+            type: "mcq",
+            q: "What is the theoretical maximum speed of 5G?",
+            options: ["100 Mbit/s", "1 Gbit/s", "10 Gbit/s", "100 Gbit/s"],
+            answer: 2
+        },
+        {
+            type: "mcq",
+            q: "Which technology relies primarily on Star Topology connecting to a Base Station?",
+            options: ["ZigBee", "Z-Wave", "SigFox / LoRaWAN", "Bluetooth Mesh"],
+            answer: 2
+        },
+        {
+            type: "mcq",
+            q: "Which attack targets Data Confidentiality?",
+            options: ["Traffic Analysis.", "Denial of Service.", "Replay Attack.", "Masquerade."],
+            answer: 0
+        },
+        {
+            type: "mcq",
+            q: "In ZigBee, when is the Link Key used?",
+            options: ["For secure Unicast (node-to-node) communication.", "For broadcast.", "Joining only.", "Firmware updates."],
+            answer: 0
+        },
+        {
+            type: "mcq",
+            q: "What is a main disadvantage of Ring Topology?",
+            options: ["High cost.", "Failure of one node/cable can break the entire ring.", "Central management.", "Interference."],
+            answer: 1
+        },
+        {
+            type: "mcq",
+            q: "Which of the following is an Active Threat?",
+            options: ["Eavesdropping.", "Traffic Analysis.", "Modification of messages.", "Port scanning."],
+            answer: 2
+        },
+        {
+            type: "mcq",
+            q: "What does an Actuator do?",
+            options: ["Collects data.", "Performs a physical action based on a signal.", "Routes data.", "Stores data."],
+            answer: 1
+        },
+        {
+            type: "mcq",
+            q: "Which technology is often used in retail to replace barcodes and allow non-line-of-sight reading?",
+            options: ["NFC", "RFID", "Bluetooth", "Infrared"],
+            answer: 1
+        },
+        {
+            type: "mcq",
+            q: "Theoretically, how many nodes can a ZigBee network support?",
+            options: ["8", "65,000+ (based on 16-bit address).", "1 Million.", "10 only."],
+            answer: 1
+        },
+        {
+            type: "mcq",
+            q: "Which protocol uses UDP and is designed for Constrained Devices?",
+            options: ["HTTP", "CoAP", "FTP", "SSH"],
+            answer: 1
+        },
+        {
+            type: "mcq",
+            q: "In 5G, what does mMTC stand for?",
+            options: ["Massive Machine Type Communication", "Mobile Main Type Control", "Many Machine Transfer Code", "Mini Machine Time Check"],
+            answer: 0
+        },
+        {
+            type: "mcq",
+            q: "Which of the following is NOT a layer in the basic 3-layer IoT architecture?",
+            options: ["Perception Layer", "Network Layer", "Application Layer", "Session Layer"],
+            answer: 3
+        },
+        {
+            type: "mcq",
+            q: "What helps prevent 'Man-in-the-Middle' attacks during key exchange?",
+            options: ["Authentication", "Compression", "Broadcasting", "Using a longer cable"],
+            answer: 0
+        },
+        {
+            type: "scenario",
+            q: "Scenario: A hacker floods a server with requests so legitimate users cannot access it. This is:",
+            options: ["Spoofing", "DoS (Denial of Service)", "Phishing", "Sniffing"],
+            answer: 1
+        },
+        {
+            type: "mcq",
+            q: "Which IoT connectivity option is best for a pacemaker (medical device)?",
+            options: ["LoRa", "BLE (Bluetooth Low Energy)", "Satellite", "Ethernet"],
+            answer: 1
+        }
+    ];
+
+    function renderQuiz() {
+        const container = document.getElementById('quiz-container');
+        let html = '';
+        
+        questions.forEach((q, index) => {
+            let optionsHtml = '';
+            q.options.forEach((opt, optIndex) => {
+                optionsHtml += `
+                    <label>
+                        <input type="radio" name="q${index}" value="${optIndex}">
+                        ${opt}
+                    </label>
+                `;
+            });
+
+            html += `
+                <div class="question-card" id="card-${index}">
+                    <div class="question-title">Q${index + 1}: ${q.q}</div>
+                    ${q.type === 'scenario' ? '<div class="scenario-text">💡 Scenario Question</div>' : ''}
+                    <div class="options">${optionsHtml}</div>
+                    <div class="feedback" id="feedback-${index}"></div>
+                </div>
+            `;
+        });
+
+        container.innerHTML = html;
+    }
+
+    function submitQuiz() {
+        let score = 0;
+        let allAnswered = true;
+
+        questions.forEach((q, index) => {
+            const selected = document.querySelector(`input[name="q${index}"]:checked`);
+            const feedbackEl = document.getElementById(`feedback-${index}`);
+            
+            if (!selected) {
+                feedbackEl.innerHTML = "❌ Question not answered.";
+                feedbackEl.className = "feedback incorrect";
+                feedbackEl.style.display = "block";
+            } else {
+                const answer = parseInt(selected.value);
+                if (answer === q.answer) {
+                    score++;
+                    feedbackEl.innerHTML = "✅ Correct!";
+                    feedbackEl.className = "feedback correct";
+                } else {
+                    feedbackEl.innerHTML = `❌ Incorrect. The correct answer is: ${q.options[q.answer]}`;
+                    feedbackEl.className = "feedback incorrect";
+                }
+                feedbackEl.style.display = "block";
+            }
+        });
+
+        const resultBox = document.getElementById('result');
+        resultBox.style.display = "block";
+        resultBox.innerHTML = `Your Score: ${score} out of ${questions.length}`;
+        
+        // Scroll to result
+        resultBox.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    // Initialize the quiz
+    renderQuiz();
+
+</script>
+
+</body>
+</html>
